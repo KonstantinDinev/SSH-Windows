@@ -41,7 +41,7 @@ At this point our Operating System is ready!
 
 ### Set of tools
 
-Let me introduce you the Toolbox! ?? 
+Let me introduce you the Toolbox!
 I have prepared the full package of applications needed to save your time but if you wish you can download all the apps from their official sources!
 
 ![Tools](/Pictures/Tools.png "Tools")
@@ -125,16 +125,17 @@ SSH1 RSA identity > no
 Very important step before we continue is to execute the following command:
 __$ net start sshd__  (to start the service).
 Now that we have everything set up in Cygwin, in order to make our SSH connection work on Windows we need to perform a few more crucial steps in configuring the Windows security policy.
-Within the Cygwin bash we can write > $ ssh -v localhost
-On the following prompts, we answer with ‘yes’ and enter the password.
+Within the Cygwin bash we can write > __$ ssh -v localhost__
+
+On the prompts that follows, we answer with ‘yes’ and enter the password.
 
 Now we started the ssh locally but if we try to start it remotely from our host machine we will get an error message with connection refused.
-To prevent this, we go to Control Panel, Users and select Change User Account Control settings (UAC). We set the bar to the minimum protection. (This could be just a temporary setting. We do this because the UAC policy is preventing remote connections to be done). This is the best time to run my registry file “Disable UAC”. 
+To prevent this, we go to Control Panel, Users and select Change User Account Control settings __(UAC)__. We set the bar to the minimum protection. (This could be just a temporary setting. We do this because the UAC policy is preventing remote connections to be done). This is the best time to run my registry file __“Disable UAC”__. 
 Now we can go to our host computer and install PuTTY. After the installation is done we can open it and type our IP address of the remote machine with the SSH configuration.
 
 ![Putty](/Pictures/putty.png)
 
-We can click Open and establish a connection. For the security authentication we can select ‘yes’. Our username now is cyg_server and the password we specified. Whatever you try to attempt will always result in “Access Denied” so don’t be upset. Your password is right but there are a few more things that needs to be done… ??
+We can click Open and establish a connection. For the security authentication we can select ‘yes’. Our username now is cyg_server and the password we specified. Whatever you try to attempt will always result in “Access Denied” so don’t be upset. Your password is right but there are a few more things that needs to be done…
 On the remote machine open Cygwin bash terminal and write these two commands just to be sure that they are not causing troubles in future:
 
 __$ mkpasswd.exe -l > /etc/passwd__
