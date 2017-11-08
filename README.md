@@ -98,27 +98,47 @@ We are ready to go! Just hit next and start downloading and installing.
 After the installation has completed we can set up our Cygwin from the desktop shortcut. 
 Start the application as administrator!
 We are now going to set up our SSH host and client configurations by executing the following commands in the Unix terminal:
-$ ssh-host-config
+
+$ __ssh-host-config__
+
 “Should StrictModes be used” > yes
+
 “New local accout ‘sshd’?” > yes
+
 “Do you want to install sshd as a service” > yes 
+
 “CYGWIN for daemon” > ntsec
-“Do you want to use different name” > no   
+
+“Do you want to use different name” > no
+
 (so we will use the default cyg_server)
+
 “Create new privileged user account” > yes
+
 Password > ******** (type something for a password and remember it)
+
 
 We are done here! You can check the screenshot below to verify your inputs.
 Now we are going to configure the user by typing __ssh-user-config__.
 
+$ __ssh-user-config__
+
 Create SSH2 RSA identity file > yes
+
 type a password *****
+
 Select ‘yes’ when prompted for connecting this machine with this identity.
+
 SSH2 DSA identity > yes
+
 type a password *****
+
 Use this identity > yes
+
 Do the same for ECDSA algorithm!
+
 SSH1 RSA identity > no
+
 
 ![ssh-config](/Pictures/ssh-host.png "ssh")
 
