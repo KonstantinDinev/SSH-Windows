@@ -165,11 +165,10 @@ __$ mkgroup --local > /etc/group__
 Now run > __$ cyglsa-config__ (This is optional Local Security Authority)
 Okay, let’s move on!
 Click the Windows Start button and select run (hold start + r). Type there __gpedit.msc__
+
 Now read careful! 
 Go to Computer Configuration 
-  > Windows Settings 
-    > Security Policies 
-      > Local Policies 
+  > Windows Settings > Security Policies > Local Policies 
         > User Rights Assignment = __Deny log on locally__ > delete our ssh account here (cyg_server)
 You can also delete the user account name from “Deny log on through remote desktop services” as well. However, it doesn’t affect much our login.
 Okay get out of there quickly!
