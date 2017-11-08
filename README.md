@@ -168,12 +168,15 @@ Click the Windows Start button and select run (hold start + r). Type there __gpe
 
 Now read careful! 
 
-Go to - Computer Configuration 
-- Windows Settings 
- - Security Policies 
-  - Local Policies 
-   - User Rights Assignment = __Deny log on locally__ > delete our ssh account here (cyg_server)
+Go to 
+- Computer Configuration 
+  - Windows Settings 
+    - Security Policies 
+      - Local Policies 
+        - User Rights Assignment = __Deny log on locally__ > delete our ssh account here (cyg_server)
+
 You can also delete the user account name from “Deny log on through remote desktop services” as well. However, it doesn’t affect much our login.
+
 Okay get out of there quickly!
 We can now go to Control Panel and go to Users > __Manage Accounts__ and we will see our User Account “cyg_server” appearing there and we don’t want this. On the next restart of the remote machine we will be held on the Windows Log on Welcome screen to choose which username we are going to use. Most probably we don’t want this as well. 
 We can run Microsoft’s netplwiz application to set our main user to login automatically but this is pretty unprofessional.
