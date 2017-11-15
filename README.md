@@ -10,7 +10,7 @@ Currently this method is tested on Windows 7 but it should be compatible with an
 Pay attention that if you don’t know what you are doing this could lead to security vulnerabilities and I am in no way responsible. Use what you learn at your own risk! 
 In this matter I would suggest to try first on a virtual machine.
 
-I’m going to create a Virtual Machine using VMware and install a clean copy of Windows 7 which will be the remote machine. This is not necessary in case that you want to use your physical machine and make your Windows a lot more functional by adding most of the Linux tools to it. This setup will give you the opportunity to start Linux applications within your Windows system. You can also use most of the Linux terminal commands from your Windows command prompt. You can connect to your machine remotely from any point of the world over a secured SSH connection which is the main point of doing all of this. You can forward X11 Linux application directly to your host machine and fully interact with your Windows file system and Unix shell. You can establish a remote VNC desktop sharing connection by forwarding the right ports in PuTTY. All the applications used are cross-platform. In Mac OSX it is all included natively (SSH, Sharing Screen, Port Forwarding). If you are not happy with the performance of the remote VNC desktop connection, you can start a Linux graphical environment and Forward X11 server to your host machine. This way you can have a nice graphic user interface (GUI) when interacting with your main file system. In addition to all of that, you can use remotely a fully featured command line tools and control every process within your remote machine. You can also connect to your remote computer with an FTP application like FileZilla. Pretty cool, isn’t it? Let’s have a look and see how this could be done!
+I’m going to create a Virtual Machine using VMware and install a clean copy of Windows 7 which will be the remote machine. This is not necessary in case that you want to use your physical machine and make your Windows a lot more functional by adding most of the Linux tools to it. This setup will give you the opportunity to start Linux applications within your Windows system. You can also use most of the Linux terminal commands from your Windows command prompt. You can connect to your machine remotely from any point of the world over a secured SSH connection which is the main point of doing all of this. You can forward X11 Linux application directly to your host machine and fully interact with your Windows file system and Unix shell. You can establish a remote VNC desktop sharing connection by forwarding the right ports in PuTTY. All the applications used are cross-platform. In Mac OSX it is all included natively (SSH, Sharing Screen, Port Forwarding). If you are not happy with the performance of the remote VNC desktop connection, you can start a Linux graphical environment and Forward X11 server to your host machine. This way you can have a nice graphic user interface (GUI) when interacting with your main file system. In addition to all of that, you can use remotely a fully featured command line tools and control every process within your remote machine. You can also connect to your remote computer with an FTP applications like FileZilla. Pretty cool, isn’t it? Let’s have a look and see how this could be done!
 
 ### Setting up the environment
   - Installing Windows and configuring the environment
@@ -186,9 +186,9 @@ After all of this is done… We can go back to the host machine and run PuTTY ag
 
 __CONGRATULATIONS!__
 
-__If you performed everything step by step it should have brought you here!
+If you performed everything step by step it should have brought you here!
 
-Now we got a great SSH remote connection!__
+Now we got a great SSH remote connection!
 
 ![success](/Pictures/success.png)
 
@@ -196,7 +196,7 @@ Keep reading and I will show you how to make SSH Tunnels with PuTTY and how to e
 
 ### Bonus to this chapter
 
-In a real situation, we would definitely want our remote machine to keep its Firewall on. In this matter go to Control Panel ? Windows Firewall and fully activate it. While you are still in Windows Firewall, on the left side you will see Advanced Settings. Go there and it will open a new window. Select Inbound Rules and from the right side of the window choose New Rule… Select Port and click next. For specific ports write 21-23 and click next. Allow the connection and go next. Click next again and on the last window type a name SSH and description CYGWIN.
+In a real situation, we would definitely want our remote machine to keep its Firewall on. In this matter go to Control Panel -> Windows Firewall and fully activate it. While you are still in Windows Firewall, on the left side you will see Advanced Settings. Go there and it will open a new window. Select Inbound Rules and from the right side of the window choose New Rule… Select Port and click next. For specific ports write 21-23 and click next. Allow the connection and go next. Click next again and on the last window type a name SSH and description CYGWIN.
 If you want to have a terminal package manager so you can install any future apps with an ease, follow the instructions bellow!
 
 ```
