@@ -214,3 +214,17 @@ alias open='cygstart'
 alias reload='source ~/.bash_profile'
 export PATH="${HOME}/bin:${PATH}"
 ```
+
+#Uninstall Instructions
+
+If for some reason you want to uninstall you can do the following:
+
+```
+- Remove the sshd service using cmd
+cygrunsrv --stop sshd
+cygrunsrv --remove sshd
+
+- Delete the created users such as sshd and cyg_server from the system using cmd
+net user sshd /delete
+net user cyg_server /delete
+```
