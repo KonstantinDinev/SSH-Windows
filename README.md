@@ -1,6 +1,6 @@
 # SSH-Windows
 SSH your Windows and extend its functionality!
-
+This is an alternative of "Windows Subsystem for Linux" which is featured in Windows 10 but in my opinion this is a lot more powerful. Make your Windows the OS that it was supposed to be! Don't run Linux as a second system, integrate it as a service!
 
 # SSH your Windows and extend its functionality
 ### Introduction
