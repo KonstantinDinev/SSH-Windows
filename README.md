@@ -2,11 +2,15 @@
 SSH your Windows and extend its functionality!
 This is an alternative of "Windows Subsystem for Linux" which is featured in Windows 10 but in my opinion this is a lot more powerful. Make your Windows the OS that it was supposed to be! Don't run Linux as a second system, integrate it as a service!
 
-* ![Introduction](#Introduction)
-* ![Setting Up The Environment - Optional](### Setting up the environment)
+* ![Chapter 1 - Introduction](#Intro)
+* ![Setting Up The Environment](#env)
+  * ![Virtual Machine - Optional but recommended for beginners](#env)
+  * ![Set of tools for a start](#tools)
+  * ![Uninstall Instructions](#uninst)
+* ![Chapter 2 - Establishing a secured VNC connection](#chap2)
 
 # SSH your Windows and extend its functionality
-### Introduction
+### Introduction <a name="Intro"></a>
 This is a tutorial which I was inspired to write after I couldn’t find any recent information on how to setup a CYGWIN environment on a Windows machine. This will extend the Windows operating system functionality to a level that you can use Linux commands in your console. You can run KDE or GNOME graphic user interface within your Windows. You can also run X11 Unix applications on the host machine or even remotely. The main advantage of extending your Windows functionality should be the ability to use a secured remote access to your system using SSH and VNC tunnels. This is a cross-platform solution which is compatible with the majority Operating Systems such as Linux, Mac OSX and Windows. 
 Currently this method is tested on Windows 7 but it should be compatible with any other Windows systems.
 
@@ -15,7 +19,7 @@ In this matter I would suggest trying it first on a virtual machine.
 
 I’m going to create a Virtual Machine using VMware and install a clean copy of Windows 7 which will be the remote machine. This is not necessary in case that you want to use your physical machine and make your Windows a lot more functional by adding most of the Linux tools to it. This setup will give you the opportunity to start Linux applications within your Windows system. You can also use most of the Linux terminal commands from your Windows command prompt. You can connect to your machine remotely from any point of the world over a secured SSH connection which is the main point of doing all of this. You can forward X11 Linux application directly to your host machine and fully interact with your Windows file system and Unix shell. You can establish a remote VNC desktop sharing connection by forwarding the right ports in PuTTY. All the applications used are cross-platform. In Mac OSX it is all included natively (SSH, Sharing Screen, Port Forwarding). If you are not happy with the performance of the remote VNC desktop connection, you can start a Linux graphical environment and Forward X11 server to your host machine. This way you can have a nice graphic user interface (GUI) when interacting with your main file system. In addition to all of that, you can use remotely a fully featured command line tools and control every process within your remote machine. You can also connect to your remote computer with an FTP applications like FileZilla. Pretty cool, isn’t it? Let’s have a look and see how this could be done!
 
-### Setting up the environment
+### Setting up the environment <a name="env"></a>
   - Installing Windows and configuring the environment
   
 ![Win7Install](/Pictures/WinInstall.png "Windows 7 Installation")
@@ -40,9 +44,9 @@ You can now try to ping from the command prompt both, the host and the virtual m
 
 ![cmd](/Pictures/cmd.png "command prompt")
 
-At this point our Operating System is ready!
+At this point the Operating System is ready!
 
-### Set of tools
+### Set of tools <a name="tools"></a>
 
 Let me introduce you the Toolbox!
 I have prepared the full package of applications needed to save your time but if you wish you can download all the apps from their official sources!
@@ -96,7 +100,7 @@ We are ready to go! Just hit next and start downloading and installing.
 | __konqueror__ | oxygen-kde4 |
 
 
-### Setting up the Cygwin environmnet
+### Setting up the Cygwin environment
 
 After the installation has completed we can set up our Cygwin from the desktop shortcut. 
 Start the application as administrator!
@@ -218,7 +222,7 @@ alias reload='source ~/.bash_profile'
 export PATH="${HOME}/bin:${PATH}"
 ```
 
-# Uninstall Instructions
+# Uninstall Instructions <a name="uninst"></a>
 
 If for some reason you want to uninstall you can do the following:
 
@@ -234,7 +238,7 @@ net user sshd /delete
 net user cyg_server /delete
 ```
 
-# Chapter 2
+# Chapter 2 <a name="chap2"></a>
 ## Establishing a secured VNC connection
 
 In this chapter I will show you how to configure a remote VNC connection using an SSH tunnel from the previous chapter. Using this method, the whole traffic will be securely encrypted.
