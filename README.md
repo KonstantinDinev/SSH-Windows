@@ -337,3 +337,163 @@ $ PsExec \\\\127.0.0.1 -u cyg_server -p (password) -i -d nircmd monitor off
 I guess this is enough for a start. In the next chapter I will show you how to start X11 graphic applications and how to forward them remotely. Lastly, I will show you how to configure a fancy Unix Terminal running zsh natively on your Windows. I guess that’s what most developers on Windows are missing, a beautiful terminal solving their troubles with NPM and other tools like git.
 
 ![11](/Pictures/chapters/11.jpg "11")
+
+# Chapter 4
+## Configuring X11 and App Forwarding
+
+Let’s start by configuring the environments. On your local machine open the PuTTY application, load the target machine from the Session tab and go to Connection-SSH-X11 tab. When you get there, select the checkbox “Enable X11 forwarding”. For X display location type “localhost:0” and select the left radio button under X11 authentication protocol “MIT-Magic-Cookie-1”.
+
+![12](/Pictures/chapters/12.jpg "12") ![13](/Pictures/chapters/13.jpg "13")
+
+Next step is to install Xming. This application is the leading X Window System Server for Microsoft Windows. It will be used to display the interface of Linux applications. Note that you should install it on each machine where you want to start Linux graphic applications and also note that this isn’t an emulation process. When you start the application, you will see it in the Tray icons and you are done. 
+
+Now let’s configure the remote machine containing the Cygwin installation! Start the Cygwin terminal remotely using PuTTY or locally by running Cygwin’s minty.exe. In the terminal type the following command “`nano /etc/ssh_config`”. It will open the configuration file in the nano text editor. Scroll it down with the arrows until you see the # Host *. You will see something like this:
+
+![14](/Pictures/chapters/14.jpg "14")
+
+Uncomment ForwardAgent and ForwadX11 by removing the ‘#’ symbol and change no to yes.
+
+![15](/Pictures/chapters/15.jpg "15")
+
+Press `Ctrl + O` to save the changes and then `Ctrl + X` to exit.
+Now install xinit if you don’t have it by typing this command: `apt-cyg install xinit`
+If you don’t have apt-cyg package manager go to the first chapter and see how to install it! 
+Now pay attention that this could be a bit tricky and quite difficult! If you are logged in using PuTTY type this command ‘startxwin’. It will create the necessary files but it wont start anything because we haven’t set a DISPLAY variable yet and the forwarding will not work. Press enter and it will return your command line. You can type ‘`echo $DISPLAY`’ and you will see that there is nothing set there yet.
+
+![16](/Pictures/chapters/16.jpg "16")
+
+Let’s try the same on the other side! Go to the remote machine that has the Cygwin installed and open it locally. Type there ‘startxwin’ but make sure you have the Xming app running! It will make another icon in the Tray with X apps menu!
+
+![17](/Pictures/chapters/17.jpg "17")
+
+Okay, that’s enough fun! Let’s go back to PuTTY on the local machine. I want you to set the DISPLAY variable but please remember that setting it manually breaks the forwarding. This example is just to learn how it works. Please type the following:
+
+`export DISPLAY=127.0.0.1:0.0`
+
+`echo $DISPLAY`
+
+`xterm &`
+
+![18](/Pictures/chapters/18.jpg "18") ![19](/Pictures/chapters/19.jpg "19")
+
+This will start the X11 app on the remote machine. The point is to make it start from the remote machine to the local machine (Forwarding the X11 App). 
+
+Now close the PuTTY application and start it again and load the Session. Make sure you got the configurations we did at the beginning of the chapter were saved. PuTTY needs to be restarted because we broke the forwarding by changing manually the DISPLAY variable. We are now going to configure the X11 forwarding!
+
+$ `nano /etc/ssh_config`
+
+Add the first line as on the picture bellow and save and exit with `Ctrl + O`, `Ctrl + X`
+
+
+![20](/Pictures/chapters/20.jpg "20")
+
+Now type: `nano /etc/sshd_config`
+
+Scroll it down and change the following to look like this:
+
+![21](/Pictures/chapters/21.jpg "21")
+
+Close with `Ctrl + O and Ctrl + X`
+
+Now type in the terminal: `nano /bin/startxwin`
+
+Scroll down to `‘defaultserverargs=””` ‘ and add: `-multiwindow -listen tcp`
+
+`defaultserverargs=”-multiwindow -listen tcp”`
+
+![22](/Pictures/chapters/22.jpg "22")
+
+`Ctrl + O` and `Ctrl + X`
+
+Now go to your home folder: `cd ~`
+
+`chmod +x .Xauthorithy`
+
+Next step is to open .bashrc
+`nano /home/.bashrc`
+scroll down to the bottom of the document and add this line:
+
+`export DISPLAY=:10.0`
+
+`Ctrl + O, Ctrl + X`
+
+Do the same for `/home/.bash_profile`
+
+We are almost there! PuTTY’s X11 Forwarding with the X Display Location set to localhost:0 as we did earlier should now be forwarding greatly but please don’t rush and let’s add a bit more to be sure that it’s all set well.
+
+Remember two things: If we change the DISPLAY variable within the ssh we can no longer use forwarding. The second thing is that if we want to use X11 applications without PuTTY, we need to type in Cygwin’s terminal: 
+
+`export DISPLAY=localhost:0.0`
+
+Let’s add some rights by entering those commands one by one in the terminal:
+
+`editrights -a SeAssignPrimaryTokenPrivilege -u cyg_server`
+`editrights -a SeCreateTokenPrivilege -u cyg_server`
+`editrights -a SeTcbPrivilege -u cyg_server`
+`editrights -a SeServiceLogonRight -u cyg_server`
+`editrights -l -u cyg_server`
+
+Those lines are needed by the ssh-host-config!
+Within PuTTY type:
+`ssh -Y cyg_server@localhost`
+If it results in “Warning: No xauth data; using fake authentication data for X11 forwarding.” error then perform the bottom commands. 
+
+`rm .Xauthority`
+
+`apt-cyg update xauth`
+
+Now we need to boot Windows in safe mode. Open msconfig by typing it in the start menu or in the Run app or type it in the command prompt… 😊
+Go to Boot tab and select Safe boot!
+
+Restart the computer and it will boot in Safe Mode. Then open the start menu and type cmd. Click it with a right button and start it as administrator.
+Now navigate to your Cygwin’s bin directory and type ‘`ash`’. It will change the command prompt symbol to `$`. Then type ‘`rebaseall`’. When it returns you to that symbol ‘`$`’ that means it’s done. Go back to `msconfig`! On the Boot tab unselect the ‘Safe boot’ option, click Apply and restart the computer.
+Now the X11 Forwarding should be working! Open PuTTY on the host machine and connect to the remote machine with the Cygwin installed on it. Now type:
+
+`xclock &`
+
+The application should run on your host machine forwarded from the remote machine. It should look like this on the picture below:
+ 
+You can now try to run the same command as before:
+
+`ssh -Y cyg_server@localhost`
+
+On the prompt type yes and enter your password. It will now log you without showing the error message for Fake authentication as the xauth will automatically create .Xauthority file with the MIT-Magic-Cookie-1.
+Type ‘`xauth list`’ and it will show the cookie.
+
+You can now type locally “startxwin” and it will load the tray icon where you can use Linux app without making any other changes. You can start a Linux KDE environment by typing ‘startx &’ in Cygwin’s terminal. If you want to do it remotely with PuTTY you can type ‘startKDE &’. You can also run any other program remotely like: konqueror &, xclock &, gedit &, dolphin &, xterm & and whatever you like.
+I guess that was the hardest part. I hope you managed to get here! Now you can forward X11 applications to remote computer and you can also use Linux applications locally! Move onto the next chapter to unlock the supreme Unix terminal and start a career as a developer! Be the best always! See you there!
+
+### Common Error Fixes
+
+xauth add :0 . `'mcookie'`
+
+just to verify:
+
+`xauth list`
+
+/usr/bin/X :0 -auth /home/cyg_server/.serverauth.1848
+
+Now close PuTTY and reopen it with the configured Session! Let’s install X11 clock application and test it out.
+
+`apt-cyg install xclock`
+
+If you get an error “faking X11 authentication – forwarding not permitted“ try to rebase from safe mode:
+
+On the following error:
+/usr/bin/xauth:  error in locking authority file /home/cyg_server/.Xauthority
+
+1. `mv .Xauthority .Xauthority.old`
+1. `touch .Xauthority`
+1. `chown cyg_server .Xauthority`
+1. `chmod +x .Xauthority`
+
+cyg_server@WIN-5N36JOLE9CA ~
+$ xclock &
+[1] 3764
+
+cyg_server@WIN-5N36JOLE9CA ~
+$ PuTTY X11 proxy: Unsupported authorisation protocol
+Error: Can't open display: :10.0
+
+* this error --> QXcbConnection: XCB error: 3 (BadWindow), sequence: 500,
+the workaround is setting this environment variable ---> `export QT_DEVICE_PIXEL_RATIO=1`
