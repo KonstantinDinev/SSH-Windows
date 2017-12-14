@@ -632,3 +632,10 @@ You can configure Oh My ZSH with the agnoster theme also for Cygwin’s terminal
 ![34](/Pictures/chapters/34.jpg "34")
 
 Open Cygwin terminal and right click it. Go to options. When it opens up go to Text and change to Powerline.
+
+
+### License
+
+[![CC0](http://mirrors.creativecommons.org/presskit/buttons/88x31/svg/cc-zero.svg)](https://creativecommons.org/publicdomain/zero/1.0/)
+
+To the extent possible under law, KonstantinDinev has waived all copyright and related or neighboring rights to this work.
