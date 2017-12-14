@@ -282,7 +282,7 @@ Congratulations! Now you can access your machine remotely with a secured connect
 # Chapter 3
 ## Extend Windows functionality and run applications remotely using a terminal
 
-Let’s locally extend our Windows functionality. This will let us execute Linux commands from the command prompt (cmd). In order to do that, we need to specify the path to the Cygwin’s bin directory in Windows “Environment Variables”. If you don’t know how to get there you can open Run from the start menu and paste this “rundll32 sysdm.cpl,EditEnvironmentVariables”. 
+Let’s locally extend our Windows functionality. This will let us execute Linux commands from the command prompt (cmd). In order to do that, we need to specify the path to the Cygwin’s bin directory in Windows “Environment Variables”. If you don’t know how to get there you can open Run from the start menu and paste this __“rundll32 sysdm.cpl,EditEnvironmentVariables”__. 
 Another way is: 
 
 1.	Right click 'My Computer' and select 'Properties'.
@@ -294,30 +294,46 @@ Your window should look like this:
 
 ![8](/Pictures/chapters/8.jpg "8")
 
-If you are not on Windows 10 you should separate each path with a semicolon. Find the Path variable and add to it your Cygwin installation path. Mine looks like this: C:\cygwin64\bin
-After you do that click OK on each window and then open cmd. You should now be able to type commands like ls, git, even ssh. I will show you on the next chapter how to run X11 Linux applications with GUI in your Windows.
+If you are not on Windows 10 you should separate each path with a semicolon. Find the Path variable and add to it your Cygwin installation path. 
+
+Mine looks like this: __C:\cygwin64\bin__
+
+After you do that click OK on each window and then open cmd. You should now be able to type commands like __ls, git, even ssh__. I will show you on the next chapter how to run X11 Linux applications with GUI in your Windows.
 
 ![9](/Pictures/chapters/9.jpg "9")
 
 If you intend to connect to your computer remotely and you also want to have the full power to control system processes just by a command line you will need to install PSTools. I have included it in my packages. You just need to extract the files in your C:\cygwin64\bin folder and you are good to go. There is another program in my packages and it is called Nircmd. It needs to be placed in the Windows directory and you can control the system sound levels from the console, turn off the monitor and etc. Let’s see how we can use this!
 Start PuTTY and connect to your remote machine. The first time you use the PSTools you will need to accept the eula. For example, type PsList -accepteula in the PuTTY terminal and it will show you the running processes on the remote machine. To start a process on the remote machine type:
+
 PsExec \\\\127.0.0.1 -u cyg_server –p [password] -i -d cmd -accepteula
 
 ![10](/Pictures/chapters/10.jpg "10")
 
 The -d attribute indicates that the client won't have to wait until notepad's end of execution.
+
 The -i attribute allows the application to be launched on the target's desktop.
+
 You can also start a batch file like this: PsExec \\\\127.0.0.1 -u cyg_server -p [password] -i -d cmd /c C:\\something.bat
+
 I will add below a list of commands you can test.
 $ PsExec \\\\127.0.0.1 -u cyg_server -p (password) cmd /c nircmd changesysvolume +30000
+
 $ PsExec \\\\127.0.0.1 -u cyg_server -p (password) -i -d cmd /c nircmd mutesysvolume 0          (0 - mute) (1 - unmute) (2 - switch)
+
 Next command takes the input text from the txt file and outputs it into a wav file.
+
 $ PsExec \\\\127.0.0.1 -u cyg_server -p 0887313660 cmd /c nircmd speak file "c:\temp\speak.txt" 0 100 "c:\temp\speak.wav" 48kHz16BitStereo
+
 This command outputs the speech through the computer's speakers:
+
 $ PsExec \\\\127.0.0.1 -u cyg_server -p (password) -i -d cmd /c nircmd speak file "c:\temp\speak.txt" 0 100
+
 The following style will execute invisibly with no traces!
+
 $ PsExec \\\\127.0.0.1 -u cyg_server -p (password) -i -d nircmd speak file "c:\temp\speak.txt" 0 100
+
 $ PsExec \\\\127.0.0.1 -u cyg_server -p (password) -i -d nircmd monitor off
+
 I guess this is enough for a start. In the next chapter I will show you how to start X11 graphic applications and how to forward them remotely. Lastly, I will show you how to configure a fancy Unix Terminal running zsh natively on your Windows. I guess that’s what most developers on Windows are missing, a beautiful terminal solving their troubles with NPM and other tools like git.
 
 ![11](/Pictures/chapters/11.jpg "11")
