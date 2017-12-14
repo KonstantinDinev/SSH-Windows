@@ -8,9 +8,17 @@ This is an alternative of "Windows Subsystem for Linux" which is featured in Win
   * [Set of tools for a start](#tools)
   * [Uninstall Instructions](#uninst)
 * [Chapter 2 - Establishing a secured VNC connection](#chap2)
+* [Chapter 3 - Extend Windows functionality and run applications remotely using a terminal](#chap3)
+* [Chapter 4 - Configuring X11 and App Forwarding](#chap4)
+* [Chapter 5 - Configuring Unix Shell](#chap5)
+  * [Terminator](#chap5)
+  * [zsh - Oh My ZSH](#chap5)
+  * [Powerline Fonts](#chap5)
+  * [Solarized Theme](#chap5)
 
+<a name="Intro"></a>
 # SSH your Windows and extend its functionality
-### Introduction <a name="Intro"></a>
+### Introduction 
 This is a tutorial which I was inspired to write after I couldn’t find any recent information on how to setup a CYGWIN environment on a Windows machine. This will extend the Windows operating system functionality to a level that you can use Linux commands in your console. You can run KDE or GNOME graphic user interface within your Windows. You can also run X11 Unix applications on the host machine or even remotely. The main advantage of extending your Windows functionality should be the ability to use a secured remote access to your system using SSH and VNC tunnels. This is a cross-platform solution which is compatible with the majority Operating Systems such as Linux, Mac OSX and Windows. 
 Currently this method is tested on Windows 7 but it should be compatible with any other Windows systems.
 
@@ -18,8 +26,8 @@ Pay attention that if you don’t know what you are doing this could lead to sec
 In this matter I would suggest trying it first on a virtual machine.
 
 I’m going to create a Virtual Machine using VMware and install a clean copy of Windows 7 which will be the remote machine. This is not necessary in case that you want to use your physical machine and make your Windows a lot more functional by adding most of the Linux tools to it. This setup will give you the opportunity to start Linux applications within your Windows system. You can also use most of the Linux terminal commands from your Windows command prompt. You can connect to your machine remotely from any point of the world over a secured SSH connection which is the main point of doing all of this. You can forward X11 Linux application directly to your host machine and fully interact with your Windows file system and Unix shell. You can establish a remote VNC desktop sharing connection by forwarding the right ports in PuTTY. All the applications used are cross-platform. In Mac OSX it is all included natively (SSH, Sharing Screen, Port Forwarding). If you are not happy with the performance of the remote VNC desktop connection, you can start a Linux graphical environment and Forward X11 server to your host machine. This way you can have a nice graphic user interface (GUI) when interacting with your main file system. In addition to all of that, you can use remotely a fully featured command line tools and control every process within your remote machine. You can also connect to your remote computer with an FTP applications like FileZilla. Pretty cool, isn’t it? Let’s have a look and see how this could be done!
-
-### Setting up the environment <a name="env"></a>
+<a name="env"></a>
+### Setting up the environment
   - Installing Windows and configuring the environment
   
 ![Win7Install](/Pictures/WinInstall.png "Windows 7 Installation")
@@ -45,8 +53,8 @@ You can now try to ping from the command prompt both, the host and the virtual m
 ![cmd](/Pictures/cmd.png "command prompt")
 
 At this point the Operating System is ready!
-
-### Set of tools <a name="tools"></a>
+<a name="tools"></a>
+### Set of tools 
 
 Let me introduce you the Toolbox!
 I have prepared the full package of applications needed to save your time but if you wish you can download all the apps from their official sources!
@@ -221,8 +229,8 @@ alias open='cygstart'
 alias reload='source ~/.bash_profile'
 export PATH="${HOME}/bin:${PATH}"
 ```
-
-# Uninstall Instructions <a name="uninst"></a>
+<a name="uninst"></a>
+# Uninstall Instructions 
 
 If for some reason you want to uninstall you can do the following:
 
@@ -237,8 +245,8 @@ cygrunsrv --remove sshd
 net user sshd /delete
 net user cyg_server /delete
 ```
-
-# Chapter 2 <a name="chap2"></a>
+<a name="chap2"></a>
+# Chapter 2 
 ## Establishing a secured VNC connection
 
 In this chapter I will show you how to configure a remote VNC connection using an SSH tunnel from the previous chapter. Using this method, the whole traffic will be securely encrypted.
@@ -285,7 +293,7 @@ For Remote Host enter “localhost:5900” and click connect. You will be requir
 Congratulations! Now you can access your machine remotely with a secured connection! Read more to understand what else you can do!
 *Note: If you want to access your computer outside of your home network you should go to your router settings and set a static IP address to this computer and then forward the port 22 to its address. This is the SSH port which you are using with PuTTY. If you also forward port 5900 in the router, your traffic won’t be tunneled and it won’t be encrypted. However, once you forward the ports, you should use your real IP address from your ISP followed by the port 0.0.0.0:22
 
-
+<a name="chap3"></a>
 # Chapter 3
 ## Extend Windows functionality and run applications remotely using a terminal
 
@@ -344,7 +352,7 @@ $ PsExec \\\\127.0.0.1 -u cyg_server -p (password) -i -d nircmd monitor off
 I guess this is enough for a start. In the next chapter I will show you how to start X11 graphic applications and how to forward them remotely. Lastly, I will show you how to configure a fancy Unix Terminal running zsh natively on your Windows. I guess that’s what most developers on Windows are missing, a beautiful terminal solving their troubles with NPM and other tools like git.
 
 ![11](/Pictures/chapters/11.jpg "11")
-
+<a name="chap4"></a>
 # Chapter 4
 ## Configuring X11 and App Forwarding
 
@@ -504,7 +512,7 @@ Error: Can't open display: :10.0
 
 * this error --> QXcbConnection: XCB error: 3 (BadWindow), sequence: 500,
 the workaround is setting this environment variable ---> `export QT_DEVICE_PIXEL_RATIO=1`
-
+<a name="chap5"></a>
 # Chapter 5
 ## Configuring Unix Shell
 
