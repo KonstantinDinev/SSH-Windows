@@ -230,3 +230,50 @@ cygrunsrv --remove sshd
 net user sshd /delete
 net user cyg_server /delete
 ```
+
+# Chapter 2
+## Establishing a secured VNC connection
+
+In this chapter I will show you how to configure a remote VNC connection using an SSH tunnel from the previous chapter. Using this method, the whole traffic will be securely encrypted.
+
+First thing is to install the application TightVNC. You can download it from the official website or you can also get it from the Install Packages from my repository. 
+When you begin installing the application you can select custom installation and install the server package. Only this package is needed on the machine that will be accessible remotely. The client version of the program should be installed on the host machine. 
+After you finish installing the server side of the application a pop-up window will appear. You need to enter two passwords. One for the remote connection and one for the local configuration of the program.
+
+![1](/Pictures/chapters/1.jpg "1")
+
+After this is done you can see the application in the Tray icons. 
+Left click on it and open it!
+
+![3](/Pictures/chapters/2.jpg "2")
+
+In this window we can see the port which is used for incoming connections. We are going to use it later. We can also disable the Web Access and optionally remove the Tray icon from Miscellaneous if we don’t want to see it in future.
+On the Access Control tab, we should enable “Allow Loopback Connections”.
+Apply the changes and close the window.
+
+Let’s move to the host machine!
+On the host machine we need to install the client package of TightVNC. Next step will be to start the application PuTTY and configure an SSH Tunnel. 
+
+![3](/Pictures/chapters/3.jpg "3")
+
+In PuTTY let’s type the IP address of the remote machine. You can type a name of this PuTTY configuration under the Saved Sessions field and click on the Save button. After this is done, on the left panel expand the Connection and then expand SSH. Scroll down until you see Tunnels. Select the two checkboxes under Port Forwarding. After that on the Source port type 5900 and for destination type your remote machine address for example 192.168.2.50:5900 and hit the Add button.
+Your window should look like this now:
+
+![4](/Pictures/chapters/4.jpg "4")
+
+Now go back to the first window. That was the Session tab. Then click on the profile that we created earlier and save it again to reflect the changes for the Tunnels. Now click Open and enter your credentials for the remote machine. 
+Your window should like this:
+ 
+![5](/Pictures/chapters/5.jpg "5")
+
+You can minimize this window on the background as we are going to start the TightVNC application now. (tvnviewer)
+
+![6](/Pictures/chapters/6.jpg "6")
+
+Your window should look like this! 
+For Remote Host enter “localhost:5900” and click connect. You will be required to enter the password that you entered after the installation of TightVNC.
+
+![7](/Pictures/chapters/7.jpg "7")
+
+Congratulations! Now you can access your machine remotely with a secured connection! Read more to understand what else you can do!
+*Note: If you want to access your computer outside of your home network you should go to your router settings and set a static IP address to this computer and then forward the port 22 to its address. This is the SSH port which you are using with PuTTY. If you also forward port 5900 in the router, your traffic won’t be tunneled and it won’t be encrypted. However, once you forward the ports, you should use your real IP address from your ISP followed by the port 0.0.0.0:22
