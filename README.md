@@ -230,3 +230,94 @@ cygrunsrv --remove sshd
 net user sshd /delete
 net user cyg_server /delete
 ```
+
+# Chapter 2
+## Establishing a secured VNC connection
+
+In this chapter I will show you how to configure a remote VNC connection using an SSH tunnel from the previous chapter. Using this method, the whole traffic will be securely encrypted.
+
+First thing is to install the application TightVNC. You can download it from the official website or you can also get it from the Install Packages from my repository. 
+When you begin installing the application you can select custom installation and install the server package. Only this package is needed on the machine that will be accessible remotely. The client version of the program should be installed on the host machine. 
+After you finish installing the server side of the application a pop-up window will appear. You need to enter two passwords. One for the remote connection and one for the local configuration of the program.
+
+![1](/Pictures/chapters/1.jpg "1")
+
+After this is done you can see the application in the Tray icons. 
+Left click on it and open it!
+
+![3](/Pictures/chapters/2.jpg "2")
+
+In this window we can see the port which is used for incoming connections. We are going to use it later. We can also disable the Web Access and optionally remove the Tray icon from Miscellaneous if we don’t want to see it in future.
+On the Access Control tab, we should enable “Allow Loopback Connections”.
+Apply the changes and close the window.
+
+Let’s move to the host machine!
+On the host machine we need to install the client package of TightVNC. Next step will be to start the application PuTTY and configure an SSH Tunnel. 
+
+![3](/Pictures/chapters/3.jpg "3")
+
+In PuTTY let’s type the IP address of the remote machine. You can type a name of this PuTTY configuration under the Saved Sessions field and click on the Save button. After this is done, on the left panel expand the Connection and then expand SSH. Scroll down until you see Tunnels. Select the two checkboxes under Port Forwarding. After that on the Source port type 5900 and for destination type your remote machine address for example 192.168.2.50:5900 and hit the Add button.
+Your window should look like this now:
+
+![4](/Pictures/chapters/4.jpg "4")
+
+Now go back to the first window. That was the Session tab. Then click on the profile that we created earlier and save it again to reflect the changes for the Tunnels. Now click Open and enter your credentials for the remote machine. 
+Your window should like this:
+ 
+![5](/Pictures/chapters/5.jpg "5")
+
+You can minimize this window on the background as we are going to start the TightVNC application now. (tvnviewer)
+
+![6](/Pictures/chapters/6.jpg "6")
+
+Your window should look like this! 
+For Remote Host enter “localhost:5900” and click connect. You will be required to enter the password that you entered after the installation of TightVNC.
+
+![7](/Pictures/chapters/7.jpg "7")
+
+Congratulations! Now you can access your machine remotely with a secured connection! Read more to understand what else you can do!
+*Note: If you want to access your computer outside of your home network you should go to your router settings and set a static IP address to this computer and then forward the port 22 to its address. This is the SSH port which you are using with PuTTY. If you also forward port 5900 in the router, your traffic won’t be tunneled and it won’t be encrypted. However, once you forward the ports, you should use your real IP address from your ISP followed by the port 0.0.0.0:22
+
+
+# Chapter 3
+## Extend Windows functionality and run applications remotely using a terminal
+
+Let’s locally extend our Windows functionality. This will let us execute Linux commands from the command prompt (cmd). In order to do that, we need to specify the path to the Cygwin’s bin directory in Windows “Environment Variables”. If you don’t know how to get there you can open Run from the start menu and paste this “rundll32 sysdm.cpl,EditEnvironmentVariables”. 
+Another way is: 
+
+1.	Right click 'My Computer' and select 'Properties'.
+2.	Click 'Advanced System Settings' link.
+3.	Click 'Advanced' tab.
+4.	Click 'Environment Variables...' button.
+
+Your window should look like this:
+
+![8](/Pictures/chapters/8.jpg "8")
+
+If you are not on Windows 10 you should separate each path with a semicolon. Find the Path variable and add to it your Cygwin installation path. Mine looks like this: C:\cygwin64\bin
+After you do that click OK on each window and then open cmd. You should now be able to type commands like ls, git, even ssh. I will show you on the next chapter how to run X11 Linux applications with GUI in your Windows.
+
+![9](/Pictures/chapters/9.jpg "9")
+
+If you intend to connect to your computer remotely and you also want to have the full power to control system processes just by a command line you will need to install PSTools. I have included it in my packages. You just need to extract the files in your C:\cygwin64\bin folder and you are good to go. There is another program in my packages and it is called Nircmd. It needs to be placed in the Windows directory and you can control the system sound levels from the console, turn off the monitor and etc. Let’s see how we can use this!
+Start PuTTY and connect to your remote machine. The first time you use the PSTools you will need to accept the eula. For example, type PsList -accepteula in the PuTTY terminal and it will show you the running processes on the remote machine. To start a process on the remote machine type:
+PsExec \\\\127.0.0.1 -u cyg_server –p [password] -i -d cmd -accepteula
+
+![10](/Pictures/chapters/10.jpg "10")
+
+The -d attribute indicates that the client won't have to wait until notepad's end of execution.
+The -i attribute allows the application to be launched on the target's desktop.
+You can also start a batch file like this: PsExec \\\\127.0.0.1 -u cyg_server -p [password] -i -d cmd /c C:\\something.bat
+I will add below a list of commands you can test.
+$ PsExec \\\\127.0.0.1 -u cyg_server -p (password) cmd /c nircmd changesysvolume +30000
+$ PsExec \\\\127.0.0.1 -u cyg_server -p (password) -i -d cmd /c nircmd mutesysvolume 0          (0 - mute) (1 - unmute) (2 - switch)
+Next command takes the input text from the txt file and outputs it into a wav file.
+$ PsExec \\\\127.0.0.1 -u cyg_server -p 0887313660 cmd /c nircmd speak file "c:\temp\speak.txt" 0 100 "c:\temp\speak.wav" 48kHz16BitStereo
+This command outputs the speech through the computer's speakers:
+$ PsExec \\\\127.0.0.1 -u cyg_server -p (password) -i -d cmd /c nircmd speak file "c:\temp\speak.txt" 0 100
+The following style will execute invisibly with no traces!
+$ PsExec \\\\127.0.0.1 -u cyg_server -p (password) -i -d nircmd speak file "c:\temp\speak.txt" 0 100
+$ PsExec \\\\127.0.0.1 -u cyg_server -p (password) -i -d nircmd monitor off
+I guess this is enough for a start. In the next chapter I will show you how to start X11 graphic applications and how to forward them remotely. Lastly, I will show you how to configure a fancy Unix Terminal running zsh natively on your Windows. I guess that’s what most developers on Windows are missing, a beautiful terminal solving their troubles with NPM and other tools like git.
+
+![11](/Pictures/chapters/11.jpg "11")
