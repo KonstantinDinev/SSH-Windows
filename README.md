@@ -497,3 +497,138 @@ Error: Can't open display: :10.0
 
 * this error --> QXcbConnection: XCB error: 3 (BadWindow), sequence: 500,
 the workaround is setting this environment variable ---> `export QT_DEVICE_PIXEL_RATIO=1`
+
+# Chapter 5
+## Configuring Unix Shell
+
+`apt-cyg install terminator`
+
+On the machine running Cygwin you should start Cygwin Terminal as administrator and type:
+
+`apt-cyg install zsh`
+
+After this is done, type `zsh`. You will be asked to configure the ZSH. Type `1` on the first configuration window. Then `1-0`, `2-1`, `3-0`. Last step to save everything hit `0`. 
+Now, lets install __Oh My ZSH__. Type the following in the terminal:
+
+`sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"`
+
+Now we are going to clone a Github repository to install Powerline Fonts. Type this command in your terminal:
+
+`git clone https://github.com/powerline/fonts`
+
+`cd fonts`
+
+`./install.sh`
+
+`cd ~/.config`
+
+`mkdir fontconfig`
+
+`cd fontconfig`
+
+`mkdir conf.d`
+
+`cd conf.d`
+
+`cp ~/fonts/fontconfig/50-enable-terminess-powerline.conf ~/.config/fontconfig/conf.d`
+
+`fc-cache -vf`
+
+Lets now configure the ZSH
+
+`cd ~`
+
+`nano .zshrc`
+
+Now change the ZSH_THEME to `ZSH_THEME=”agnoster”`
+`Ctrl + O` then `Ctrl + X`
+Now we need to change the theme colors to solarize. To do that we need to install dconf.
+
+`apt-cyg install dconf`
+
+`git clone git://github.com/sigurdga/gnome-terminal-colors-solarized.git ~/.solarized`
+
+`cd .solarized`
+
+`./install.sh`
+
+Now select the first option by pressing 1. Follow up the prompts and select 1 on the prompt to download __seebi’ dircolors-solarized__.
+
+`cd ~`
+
+`nano .zshrc`
+
+Add this line to the document: 
+
+"eval `dircolors ~/.dir_colors/dircolors`"
+
+Then `Ctrl + O`, `Ctrl + X`
+
+Now lets run the Terminator app. Make sure you have Xming started and type in the terminal: `export DISPLAY=127.0.0.1:0.0`
+`Terminator &`
+If you get an error like “GConf-WARNING **: Client failed to connect to the D-BUS daemon” try to start the app with the following command:
+__`dbus-launch --exit-with-session terminator &`__
+Your window should look like this:
+
+![26](/Pictures/chapters/26.jpg "26")
+
+Right click inside the Terminator and select Preferences.
+
+You can now configure its fonts to be Powerline and change the startup from bash to zsh. However, my recommendation is if the app is used locally to be run with the ‘startxwin &’. 
+
+![27](/Pictures/chapters/27.jpg "27")
+
+The way I’m using the terminator app is with PuTTY. 
+If you are using PuTTY, you will need to configure the terminator app for cyg_server user as well. Start the terminator app with the command we used before: 
+`dbus-launch --exit-with-session terminator &`
+Next step is to install Oh My ZSH again:
+`sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"`
+
+
+Copy the fonts that we setup earlier on the other user to the cyg_server user with the following commands but before you start typing, you should navigate to the other user folder. (/home/User/)
+
+`cp -r .config/fontconfig ~/.config`
+
+`cp -r fonts ~/`
+
+`fc-cache -vf ~/.fonts/`
+
+`cd fonts`
+
+`./install.sh`
+
+`fc-cache -vf`
+
+`dbus-launch --exit-with-session terminator &`
+
+![28](/Pictures/chapters/28.jpg "28")
+![29](/Pictures/chapters/29.jpg "29")
+![30](/Pictures/chapters/30.jpg "30")
+![31](/Pictures/chapters/31.jpg "31")
+
+`nano ~/.zshrc`
+
+change the following line ZSH_THEME="robbyrussell" to `ZSH_THEME="agnoster"`
+
+`Ctrl + O`, `Ctrl + X`
+
+Type `zsh` or just start a new instance of Terminator!
+
+![32](/Pictures/chapters/32.jpg "32")
+ 
+Your new terminal should look like this! Congratulations if you have managed to follow up until this point. If not, keep trying and you will make it!
+Let’s compare:
+
+![33](/Pictures/chapters/33.jpg "33")
+
+Sources:
+https://gist.github.com/renshuki/3cf3de6e7f00fa7e744a
+https://github.com/powerline/fonts
+
+### Optional
+
+You can configure Oh My ZSH with the agnoster theme also for Cygwin’s terminal. Just install the Powerline font in Windows.
+
+![34](/Pictures/chapters/34.jpg "34")
+
+Open Cygwin terminal and right click it. Go to options. When it opens up go to Text and change to Powerline.
