@@ -16,6 +16,8 @@ This is an alternative of "Windows Subsystem for Linux" which is featured in Win
   * [Powerline Fonts](#chap5)
   * [Solarized Theme](#chap5)
 
+* [You can donate for this work as an act of appreciation and generosity in case you liked it](https://www.paypal.me/KDinev)
+
 <a name="Intro"></a>
 # SSH your Windows and extend its functionality
 ### Introduction 
