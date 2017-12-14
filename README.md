@@ -2,12 +2,12 @@
 SSH your Windows and extend its functionality!
 This is an alternative of "Windows Subsystem for Linux" which is featured in Windows 10 but in my opinion this is a lot more powerful. Make your Windows the OS that it was supposed to be! Don't run Linux as a second system, integrate it as a service!
 
-* ![Chapter 1 - Introduction](#Intro)
-* ![Setting Up The Environment](#env)
-  * ![Virtual Machine - Optional but recommended for beginners](#env)
-  * ![Set of tools for a start](#tools)
-  * ![Uninstall Instructions](#uninst)
-* ![Chapter 2 - Establishing a secured VNC connection](#chap2)
+* [Chapter 1 - Introduction](#Intro)
+* [Setting Up The Environment](#env)
+  * [Virtual Machine - Optional but recommended for beginners](#env)
+  * [Set of tools for a start](#tools)
+  * [Uninstall Instructions](#uninst)
+* [Chapter 2 - Establishing a secured VNC connection](#chap2)
 
 # SSH your Windows and extend its functionality
 ### Introduction <a name="Intro"></a>
