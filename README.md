@@ -427,11 +427,11 @@ Remember two things: If we change the DISPLAY variable within the ssh we can no 
 
 Let’s add some rights by entering those commands one by one in the terminal:
 
-`editrights -a SeAssignPrimaryTokenPrivilege -u cyg_server`
-`editrights -a SeCreateTokenPrivilege -u cyg_server`
-`editrights -a SeTcbPrivilege -u cyg_server`
-`editrights -a SeServiceLogonRight -u cyg_server`
-`editrights -l -u cyg_server`
+* `editrights -a SeAssignPrimaryTokenPrivilege -u cyg_server`
+* `editrights -a SeCreateTokenPrivilege -u cyg_server`
+* `editrights -a SeTcbPrivilege -u cyg_server`
+* `editrights -a SeServiceLogonRight -u cyg_server`
+* `editrights -l -u cyg_server`
 
 Those lines are needed by the ssh-host-config!
 Within PuTTY type:
