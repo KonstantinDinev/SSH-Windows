@@ -113,7 +113,7 @@ We are ready to go! Just hit next and start downloading and installing.
 <a name="cygwin"></a>
 ### Setting up the Cygwin environment
 
-After the installation has completed we can set up our Cygwin from the desktop shortcut. 
+After the installation is completed we can set up our Cygwin from the desktop shortcut. 
 Start the application as administrator!
 We are now going to set up our SSH host and client configurations by executing the following commands in the Unix terminal:
 
