@@ -6,7 +6,8 @@ This is an alternative of "Windows Subsystem for Linux" which is featured in Win
 * [Chapter 1 - Introduction](#Intro)
 * [Setting Up The Environment](#env)
   * [Virtual Machine - Optional but recommended for beginners](#env)
-  * [Set of tools for a start](#tools)
+  * [Set of tools](#tools)
+  * [Setting up the Cygwin environment](#cygwin)
   * [Uninstall Instructions](#uninst)
 * [Chapter 2 - Establishing a secured VNC connection](#chap2)
 * [Chapter 3 - Extend Windows functionality and run applications remotely using a terminal](#chap3)
@@ -27,7 +28,7 @@ Currently this method is tested on Windows 7 but it should be compatible with an
 Pay attention that if you don’t know what you are doing this could lead to security vulnerabilities and I am in no way responsible. Use what you learn at your own risk! 
 In this matter I would suggest trying it first on a virtual machine.
 
-I’m going to create a Virtual Machine using VMware and install a clean copy of Windows 7 which will be the remote machine. This is not necessary in case that you want to use your physical machine and make your Windows a lot more functional by adding most of the Linux tools to it. This setup will give you the opportunity to start Linux applications within your Windows system. You can also use most of the Linux terminal commands from your Windows command prompt. You can connect to your machine remotely from any point of the world over a secured SSH connection which is the main point of doing all of this. You can forward X11 Linux application directly to your host machine and fully interact with your Windows file system and Unix shell. You can establish a remote VNC desktop sharing connection by forwarding the right ports in PuTTY. All the applications used are cross-platform. In Mac OSX it is all included natively (SSH, Sharing Screen, Port Forwarding). If you are not happy with the performance of the remote VNC desktop connection, you can start a Linux graphical environment and Forward X11 server to your host machine. This way you can have a nice graphic user interface (GUI) when interacting with your main file system. In addition to all of that, you can use remotely a fully featured command line tools and control every process within your remote machine. You can also connect to your remote computer with an FTP applications like FileZilla. Pretty cool, isn’t it? Let’s have a look and see how this could be done!
+I’m going to create a Virtual Machine using VMware and install a clean copy of Windows 7 which will be the remote machine. This is not necessary in case that you want to use your physical machine and make your Windows a lot more functional by adding most of the Linux tools to it. This setup will give you the opportunity to start Linux applications within your Windows system. You can also use most of the Linux terminal commands from your Windows command prompt. You can connect to your machine remotely from any point of the world over a secured SSH connection which is the main point of doing all of this. You can forward X11 Linux application directly to your host machine and fully interact with your Windows file system and Unix shell. You can establish a remote VNC desktop sharing connection by forwarding the right ports in PuTTY. All the applications used are cross-platform. In Mac OSX it is all included natively (SSH, Sharing Screen, Port Forwarding). If you want your actions on the remote machine to be unseen you can forward X11 file browsers instead of using VNC desktop connection. This way you can have a nice graphic user interface (GUI) when interacting with your main file system. In addition to all of that, you can use remotely a fully featured command line tools and control every process within your remote machine. You can also connect to your remote computer with an FTP applications like FileZilla. Pretty cool, isn’t it? Let’s have a look and see how this could be done!
 <a name="env"></a>
 ### Setting up the environment
   - Installing Windows and configuring the environment
@@ -109,7 +110,7 @@ We are ready to go! Just hit next and start downloading and installing.
 | rsync | kdevplatform |
 | __konqueror__ | oxygen-kde4 |
 
-
+<a name="cygwin"></a>
 ### Setting up the Cygwin environment
 
 After the installation has completed we can set up our Cygwin from the desktop shortcut. 
