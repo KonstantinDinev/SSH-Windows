@@ -340,7 +340,7 @@ $ PsExec \\\\127.0.0.1 -u cyg_server -p (password) -i -d cmd /c nircmd mutesysvo
 
 Next command takes the input text from the txt file and outputs it into a wav file.
 
-$ PsExec \\\\127.0.0.1 -u cyg_server -p 0887313660 cmd /c nircmd speak file "c:\temp\speak.txt" 0 100 "c:\temp\speak.wav" 48kHz16BitStereo
+$ PsExec \\\\127.0.0.1 -u cyg_server -p (password) cmd /c nircmd speak file "c:\temp\speak.txt" 0 100 "c:\temp\speak.wav" 48kHz16BitStereo
 
 This command outputs the speech through the computer's speakers:
 
